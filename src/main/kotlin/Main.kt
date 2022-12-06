@@ -17,7 +17,7 @@ fun main(args: Array<String>) {
     val input = File("$folder/input.txt")
     val output = File("$folder/output.txt")
     // Get day function
-    val days = arrayOf(::day1, ::day2, ::day3, ::day4, ::day5)
+    val days = arrayOf(::day1, ::day2, ::day3, ::day4, ::day5, ::day6)
     val func = days[day - 1]
     // Execute day
     func(PuzzleData(input, output))
