@@ -31,3 +31,4 @@ bin/
 
 ### Custom ###
 /data/*/output.txt
+/data/*/test_out.txt

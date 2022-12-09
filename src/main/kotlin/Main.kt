@@ -1,6 +1,9 @@
 import java.io.File
 import java.io.PrintWriter
 
+val days = arrayOf(::day1, ::day2, ::day3, ::day4, ::day5, ::day6, ::day7, ::day8)
+fun dataFolder(day: Int) = File("data/day$day")
+
 fun main(args: Array<String>) {
     if (args.isEmpty() || args.size > 1) {
         println("Need exactly 1 argument - integer 1-25")
@@ -13,11 +16,10 @@ fun main(args: Array<String>) {
     }
 
     // Input & output files
-    val folder = "data/day$day"
-    val input = File("$folder/input.txt")
-    val output = File("$folder/output.txt")
+    val folder = dataFolder(day)
+    val input = File(folder, "input.txt")
+    val output = File(folder, "output.txt")
     // Get day function
-    val days = arrayOf(::day1, ::day2, ::day3, ::day4, ::day5, ::day6, ::day7)
     val func = days[day - 1]
     // Execute day
     func(PuzzleData(input, output))
