@@ -5,12 +5,12 @@ val days = arrayOf(::day1, ::day2, ::day3, ::day4, ::day5, ::day6, ::day7, ::day
 fun dataFolder(day: Int) = File("data/day$day")
 
 fun main(args: Array<String>) {
-    if (args.isEmpty() || args.size > 1) {
+    if (args.size > 1) {
         println("Need exactly 1 argument - integer 1-25")
         return
     }
-    val day = args[0].toIntOrNull()
-    if (day == null || day !in 1..25) {
+    val day = (if (args.isNotEmpty()) args[0].toIntOrNull() else null) ?: days.size // automatically do last day if no argument
+    if (day !in 1..25) {
         println("Argument must be integer 1-25")
         return
     }

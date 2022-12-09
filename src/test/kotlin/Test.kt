@@ -1,10 +1,10 @@
 import org.junit.jupiter.params.ParameterizedTest
-import org.junit.jupiter.params.provider.ValueSource
+import org.junit.jupiter.params.provider.MethodSource
 import java.io.File
 
 class Test {
     @ParameterizedTest
-    @ValueSource(ints = [1, 2, 3, 4, 5, 6, 7, 8])
+    @MethodSource
     fun day(day: Int) {
         val folder = dataFolder(day)
         val input = File(folder, "test_in.txt")
@@ -14,5 +14,10 @@ class Test {
         days[day - 1](PuzzleData(input, output))
         val out = output.readLines()
         assert(out == ref)
+    }
+
+    companion object {
+        @JvmStatic
+        fun day() = IntArray(days.size) { it + 1 }
     }
 }
