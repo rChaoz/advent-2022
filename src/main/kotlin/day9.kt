@@ -46,7 +46,6 @@ fun day9(data: PuzzleData) = puzzle(data) { input ->
         }
         positions.add(points[9])
     }
-    kotlin.io.println(points.joinToString())
 
     println(positions.size)
 }
