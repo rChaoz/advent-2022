@@ -12,10 +12,6 @@ private data class Motion(val direction: Point, val amount: Int) {
     constructor(string: String) : this(directions[string[0]]!!, string.substring(2).toInt())
 }
 
-private data class Point(val x: Int = 0, val y: Int = 0) {
-    operator fun plus(other: Point) = Point(x + other.x, y + other.y)
-}
-
 fun day9(data: PuzzleData) = puzzle(data) { input ->
     // Part 1
     var h = Point()
