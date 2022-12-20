@@ -1,7 +1,7 @@
 import kotlin.math.min
 import kotlin.math.sign
 
-sealed class Element : Comparable<Element> {
+private sealed class Element : Comparable<Element> {
     private fun compareLists(a: ElementList, b: ElementList): Int {
         for (i in 0..min(a.lastIndex, b.lastIndex)) a[i].compareTo(b[i]).takeIf { it != 0 }?.let { return it }
         return (a.size - b.size).sign
@@ -41,13 +41,13 @@ sealed class Element : Comparable<Element> {
     }
 }
 
-data class ElementList(private val values: List<Element>) : Element(), List<Element> by values {
+private data class ElementList(private val values: List<Element>) : Element(), List<Element> by values {
     constructor(value: Element) : this(listOf(value))
 
     override fun toString() = values.toString()
 }
 
-data class ElementNumber(val value: Int) : Element() {
+private data class ElementNumber(val value: Int) : Element() {
     val listValue = ElementList(this)
 
     override fun toString() = value.toString()

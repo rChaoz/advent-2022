@@ -1,4 +1,4 @@
-class Shenanigans(private val shouldDivide: Boolean) {
+private class Shenanigans(private val shouldDivide: Boolean) {
     val monkeys = mutableListOf<Monkey>()
     private var maxMultiplier = Int.MAX_VALUE
 
