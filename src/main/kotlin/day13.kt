@@ -66,4 +66,9 @@ fun day13(data: PuzzleData) = puzzle(data) { input ->
     var sum = 0
     elementPairs.forEachIndexed { index, pair -> if (pair.first < pair.second) sum += index + 1 }
     println(sum)
+
+    // Part 2
+    val separators = arrayOf(Element.parse("[[2]]"), Element.parse("[[6]]"))
+    val elements = (input.filterNot { it.isBlank() }.map(Element::parse) + separators).sorted()
+    println(separators.map { elements.indexOf(it) + 1 }.reduce(Int::times))
 }
