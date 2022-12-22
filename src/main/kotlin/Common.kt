@@ -71,3 +71,9 @@ fun <T> Matrix(size: Dimension, init: (position: Point) -> T) = List(size.y) { y
 infix fun IntRange.intersectsOrTouches(other: IntRange) = this.last + 1 >= other.first && this.first <= other.last + 1
 
 operator fun IntRange.plus(other: IntRange) = min(this.first, other.first)..max(this.last, other.last)
+
+operator fun <T> Set<T>.get(index: T) = contains(index)
+
+operator fun <T> MutableSet<T>.set(index: T, value: Boolean) {
+    if (value) add(index) else remove(index)
+}
