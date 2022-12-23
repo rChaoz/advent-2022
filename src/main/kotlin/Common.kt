@@ -1,8 +1,8 @@
-import java.util.Objects
+import java.util.*
 import kotlin.math.abs
-import kotlin.math.sign
-import kotlin.math.min
 import kotlin.math.max
+import kotlin.math.min
+import kotlin.math.sign
 
 // Point
 
@@ -44,14 +44,25 @@ typealias Dimension = Point
 // Matrix / 2D Lists
 
 typealias Matrix<T> = List<List<T>>
+typealias MutableMatrix<T> = MutableList<MutableList<T>>
 
-operator fun <T> List<List<T>>.get(at: Point) = this[at.y][at.x]
+operator fun <T> Matrix<T>.get(at: Point) = this[at.y][at.x]
+@JvmName("mutableGet")
+operator fun <T> MutableMatrix<T>.get(at: Point) = this[at.y][at.x]
+operator fun <T> MutableMatrix<T>.set(at: Point, value: T) {
+    this[at.y][at.x] = value
+}
 
-fun <T> Matrix<T>.areaToString(topLeft: Point = Point(0, 0), bottomRight: Point = Point(this[0].lastIndex, this.lastIndex),
-                               separator: String = "", lineSeparator: String = "\n",
-                               withLineNum: Boolean = false,
-                               toStringFunc: (T) -> String = Objects::toString) = buildString {
-    for (y in topLeft.y..bottomRight.y) {
+fun <T> Matrix<T>.areaToString(
+    topLeft: Point = Point(0, 0), bottomRight: Point = Point(this[0].lastIndex, this.lastIndex),
+    separator: String = "", lineSeparator: String = "\n",
+    withLineNum: Boolean = false,
+    reverseLines: Boolean = false,
+    toStringFunc: (T) -> String = Objects::toString
+) = buildString {
+    var yProgression: IntProgression = topLeft.y..bottomRight.y
+    if (reverseLines) yProgression = yProgression.reversed()
+    for (y in yProgression) {
         if (withLineNum) append(y - topLeft.y + 1).append('\t')
 
         append(toStringFunc(this@areaToString[y][topLeft.x]))
@@ -59,12 +70,15 @@ fun <T> Matrix<T>.areaToString(topLeft: Point = Point(0, 0), bottomRight: Point 
             append(separator)
             append(toStringFunc(this@areaToString[y][x]))
         }
-        if (y != bottomRight.y) append(lineSeparator)
+        if (y != yProgression.last) append(lineSeparator)
     }
 }
 
 @Suppress("FunctionName")
 fun <T> Matrix(size: Dimension, init: (position: Point) -> T) = List(size.y) { y -> List(size.x) { x -> init(Point(x, y)) } }
+
+@Suppress("FunctionName")
+fun <T> MutableMatrix(size: Dimension, init: (position: Point) -> T) = MutableList(size.y) { y -> MutableList(size.x) { x -> init(Point(x, y)) } }
 
 // Ranges
 
