@@ -91,3 +91,7 @@ operator fun <T> Set<T>.get(index: T) = contains(index)
 operator fun <T> MutableSet<T>.set(index: T, value: Boolean) {
     if (value) add(index) else remove(index)
 }
+
+// Other
+
+operator fun String.times(n: Int) = repeat(n)
