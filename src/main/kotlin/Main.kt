@@ -2,20 +2,32 @@ import java.io.File
 import java.io.PrintWriter
 
 val days = listOf(::day1, ::day2, ::day3, ::day4, ::day5, ::day6, ::day7, ::day8, ::day9, ::day10, ::day11, ::day12, ::day13, ::day14, ::day15,
-    ::day16, ::day17, ::day18, ::day19)
+    ::day16, ::day17, ::day18, ::day19, ::day20)
 fun dataFolder(day: Int) = File("data/day$day")
 
 fun main(args: Array<String>) {
     if (args.size > 1) {
-        println("Need exactly 1 argument - integer 1-25")
-        return
-    }
-    val day = (if (args.isNotEmpty()) args[0].toIntOrNull() else null) ?: days.size // automatically do last day if no argument
-    if (day !in 1..25) {
-        println("Argument must be integer 1-25")
+        println("Need exactly 1 argument - integer 1-25 or 'all'")
         return
     }
 
+    if (args.isEmpty()) {
+        runDay(days.size)
+        return
+    } else if (args[0] == "all") {
+        for (day in 1..days.size) {
+            println("Executing: day $day")
+            runDay(day)
+        }
+        return
+    }
+
+    val day = args[0].toIntOrNull()
+    if (day !in 1..25) println("Argument must be integer 1-25 or 'all'")
+    else runDay(day as Int) // always Int if it passes in 1..25 check
+}
+
+private fun runDay(day: Int) {
     // Input & output files
     val folder = dataFolder(day)
     val input = File(folder, "input.txt")
