@@ -19,6 +19,8 @@ data class Point(val x: Int = 0, val y: Int = 0) {
 
     infix fun distanceTo(other: Point) = (this - other).radius
 
+    override fun toString() = "($x,$y)"
+
     companion object {
         val UP = Point(0, -1)
         val RIGHT = Point(1, 0)
@@ -74,11 +76,34 @@ fun <T> Matrix<T>.areaToString(
     }
 }
 
+operator fun <T> Matrix<T>.contains(point: Point) = point.x in this[0].indices && point.y in this.indices
+
 @Suppress("FunctionName")
 fun <T> Matrix(size: Dimension, init: (position: Point) -> T) = List(size.y) { y -> List(size.x) { x -> init(Point(x, y)) } }
 
 @Suppress("FunctionName")
 fun <T> MutableMatrix(size: Dimension, init: (position: Point) -> T) = MutableList(size.y) { y -> MutableList(size.x) { x -> init(Point(x, y)) } }
+
+fun <T> Matrix<T>.toMutableMatrix() = MutableMatrix(Dimension(this[0].size, this.size)) { this[it] }
+
+val <T> Matrix<T>.dimension get() = Dimension(this[0].size, this.size)
+
+fun <T> Matrix<T>.subMatrix(topLeft: Point = Point(0, 0), bottomRight: Point = Point(this[0].lastIndex, this.lastIndex)) =
+    Matrix(Point(bottomRight.x - topLeft.x + 1, bottomRight.y - topLeft.y + 1)) { this[it + topLeft] }
+
+fun <T, R> Matrix<T>.mapCells(mapFunction: (T) -> R) = this.map { it.map(mapFunction) }
+
+fun <T, R> Matrix<T>.mapCellsIndexed(mapFunction: (Point, T) -> R) = this.mapIndexed { y, row -> row.mapIndexed { x, cell -> mapFunction(Point(x, y), cell) } }
+
+fun <T> Matrix<T>.rotateClockwise() : Matrix<T> {
+    val d = this.dimension
+    return Matrix(Dimension(d.y, d.x)) { this[d.y - it.x - 1][it.y] }
+}
+
+fun <T> Matrix<T>.rotateCounterClockwise(): Matrix<T> {
+    val d = this.dimension
+    return Matrix(Dimension(d.y, d.x)) { this[it.x][d.x - it.y - 1] }
+}
 
 // Ranges
 

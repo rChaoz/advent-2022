@@ -47,7 +47,6 @@ fun day16(puzzleData: PuzzleData) = puzzle(puzzleData) { input ->
             totalPressure += bestValve.pressure
             valveData[bestValve.valve]!!.open = true
             location = bestValve.valve
-            kotlin.io.println("After minute $minute, valve $location (${valveData[location]!!.flow} - ${bestValve.pressure}) is open")
         }
 
         println(totalPressure)
