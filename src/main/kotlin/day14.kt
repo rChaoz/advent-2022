@@ -34,8 +34,8 @@ fun day14(data: PuzzleData) = puzzle(data) { input ->
         ++count
         while (sand.y < 199) sand += when {
             !cave[sand + Point.DOWN].solid -> Point.DOWN
-            !cave[sand + Point.UP_LEFT].solid -> Point.UP_LEFT
-            !cave[sand + Point.UP_RIGHT].solid -> Point.UP_RIGHT
+            !cave[sand + Point.DOWN_LEFT].solid -> Point.DOWN_LEFT
+            !cave[sand + Point.DOWN_RIGHT].solid -> Point.DOWN_RIGHT
             else -> {
                 cave[sand].type = CavePoint.Type.SAND
                 continue@outer
@@ -57,8 +57,8 @@ fun day14(data: PuzzleData) = puzzle(data) { input ->
         ++count
         while (sand.y < 199) sand += when {
             !cave[sand + Point.DOWN].solid -> Point.DOWN
-            !cave[sand + Point.UP_LEFT].solid -> Point.UP_LEFT
-            !cave[sand + Point.UP_RIGHT].solid -> Point.UP_RIGHT
+            !cave[sand + Point.DOWN_LEFT].solid -> Point.DOWN_LEFT
+            !cave[sand + Point.DOWN_RIGHT].solid -> Point.DOWN_RIGHT
             else -> {
                 cave[sand].type = CavePoint.Type.SAND
                 break
