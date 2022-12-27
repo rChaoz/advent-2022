@@ -34,8 +34,8 @@ data class Point(val x: Int = 0, val y: Int = 0) {
         val DOWN_LEFT = DOWN + LEFT
         val DOWN_RIGHT = DOWN + RIGHT
 
-        val DIRECTIONS = arrayOf(UP, RIGHT, DOWN, LEFT)
-        val ALL_DIRECTIONS = arrayOf(DOWN_LEFT, UP, DOWN_RIGHT, RIGHT, UP_RIGHT, DOWN, UP_LEFT, LEFT)
+        val DIRECTIONS = listOf(UP, RIGHT, DOWN, LEFT)
+        val ALL_DIRECTIONS = listOf(DOWN_LEFT, UP, DOWN_RIGHT, RIGHT, UP_RIGHT, DOWN, UP_LEFT, LEFT)
 
         fun parse(string: String): Point {
             val (x, y) = string.split(',').map(String::toInt)
